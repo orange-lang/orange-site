@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Defining Orange</title>
+  <meta name="description" content="After completing asecond full rewrite of thecompiler, defining what kind of language Orange will be has still been astruggle.">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://orange-lang.org/blog/2015/12/29/defining-orange.html">
+  <link rel="alternate" type="application/rss+xml" title="Orange" href="http://orange-lang.org/feed.xml" />
+	<link rel="stylesheet" href="/css/octicons/octicons.css">
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Orange</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger nav-buttons">
+        <a href="https://github.com/orange-lang/orange" title="Github Repo">
+          <span class="mega-octicon octicon-mark-github"></span>
+        </a>
+        <a href="https://docs.orange-lang.org" title="Documentation">
+          <span class="mega-octicon octicon-book"></span>
+        </a>
+        <a href="/feed.xml" title="RSS Feed">
+          <span class="mega-octicon octicon-rss"></span>
+        </a>
+        <a href="mailto:Orange Team <contact@orange-lang.org>" title="Contact">
+          <span class="mega-octicon octicon-mail"></span>
+        </a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+    <div class="page-content">
+
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Defining Orange</h1>
+    <p class="post-meta">Dec 29, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <p>After completing a
+<a href="https://github.com/orange-lang/orange/pull/21">second full rewrite</a> of the
+compiler, defining what kind of language Orange will be has still been a
+struggle.</p>
+
+<p>Currently, Orange sits around 20K lines of code: a mix between C++ and tests
+written in Orange itself. Working with a decent chunk of C++ code for Orange
+and C# at work has continued to
+<a href="https://github.com/orange-lang/orange/issues/24">inspire</a>
+<a href="https://github.com/orange-lang/orange/issues/15">me</a> as to what kind of
+workflow I’d like to see possible with the language.</p>
+
+<p>There are a few features that I’m considering a must for Orange:
+	- Optional non-tracing garbage collection
+	- Object Orientation
+	- Reflection
+	- Package Management and other Utilities</p>
+
+<h1 id="optional-non-tracing-garbage-collection">Optional non-tracing garbage collection</h1>
+
+<p>C++’s <code class="highlighter-rouge">std::shared_ptr&lt;T&gt;</code> approach to a reference-counting garbage collection
+system is handy, but a giant pain to use. Orange’s garbage collection
+will work more similarly to Apple’s
+<a href="https://en.wikipedia.org/wiki/Automatic_Reference_Counting">Automatic Reference Counting</a>.</p>
+
+<p>If possible, Orange will automatically insert code to release objects at
+compile-time to avoid unnecessary run-time checks of reference counts.</p>
+
+<p>Orange will still allow this feature to be disabled, being replaced with manual
+<code class="highlighter-rouge">delete</code> calls when manually managing memory is important.</p>
+
+<h1 id="object-orientation">Object Orientation</h1>
+
+<p>Support for classes is currently being developed in my
+<a href="https://github.com/rfratto/orange/tree/classes">personal fork</a> of Orange, and
+is on its way in.</p>
+
+<p>Orange <em>is</em> multi-paradigm so imperative programming can
+still be used above OOP, but similarly to C++, giving the choice is important.</p>
+
+<h1 id="reflection">Reflection</h1>
+
+<p>The necessity of reflection is a hot topic amongst programmers, but I believe
+that it can be an extremely useful tool for certain systems like unit tests
+or other dynamic environments. Support for reflection will
+be built into the runtime type information of Orange, and can be disabled,
+similarly to gcc/clang’s <code class="highlighter-rouge">-fno-rrti</code> flag.</p>
+
+<h1 id="package-management-and-other-utilities">Package Management and other Utilities</h1>
+
+<p>As (currently) the sole maintainer of Orange, I can’t reasonably include
+everything into the standard library on my own. C++, after 30 years, still
+doesn’t have package management. Any modern programming language should have
+package management built in.</p>
+
+<p>Orange will support globally installing packages and installing packages
+locally to a project, where the project definition file (<code class="highlighter-rouge">orange.settings.json</code>)
+will define the dependencies of the language. It should be able to grab
+dependencies straight from Github or a package directory service.</p>
+
+<p>Just being able to call <code class="highlighter-rouge">orange install mylibrary</code> isn’t enough for a compiler
+command line interface: other tools, such as code formatters, project creation,
+code-completion interfaces, package uploading, and testing should be built into
+the binary, and so it will.</p>
+
+<h1 id="defining-orange">Defining Orange</h1>
+
+<p>Orange is a portable, compiled, statically typed, multi-paradigm (imperative,
+object-oriented, reflective) systems programming language with focus on high
+productivity, features for DRY code, and a smooth syntax without sacrificing
+efficiency.</p>
+
+<h1 id="discuss">Discuss</h1>
+
+<p>Disagree with anything in this post, or have any ideas? Feel free to comment
+in the Disqus module below, our IRC channel
+<a href="http://webchat.freenode.net/?channels=%23orange-lang">#orange-lang</a> on
+irc.freenode.net, or
+<a href="https://groups.google.com/forum/?fromgroups#!forum/orange-lang">Google Group</a>.</p>
+
+  </article>
+
+  <!-- <p>/blog/2015/12/29/defining-orange.html</p> -->
+
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+	    /* * * CONFIGURATION VARIABLES * * */
+	    var disqus_shortname = 'orangelang';
+	    var disqus_identifier = "/blog/2015/12/29/defining-orange.html";
+	    
+	    /* * * DON'T EDIT BELOW THIS LINE * * */
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-2">
+      </div>
+
+      <div class="footer-col  footer-col-3">
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-64525923-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+  </body>
+
+</html>
