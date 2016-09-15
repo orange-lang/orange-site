@@ -4,7 +4,7 @@ title: Examples
 permalink: /examples/
 ---
 
-_Note: this examples will be out of data soon with the upcoming revision to Orange. See [this post]()http://orange-lang.org/blog/2016/09/14/still-alive.html for more details._
+_Note: this examples will be out of data soon with the upcoming revision to Orange. See [this post](http://orange-lang.org/blog/2016/09/14/still-alive.html) for more details._
 
 # Hello, World!
 
