@@ -1,8 +1,10 @@
 ---
 layout: page
-title: Examples 
+title: Examples
 permalink: /examples/
 ---
+
+_Note: this examples will be out of data soon with the upcoming revision to Orange. See [this post]()http://orange-lang.org/blog/2016/09/14/still-alive.html for more details._
 
 # Hello, World!
 
@@ -12,18 +14,18 @@ permalink: /examples/
       printf("Hello world, %d!\n", i)
     end
 
-# Pointers 
+# Pointers
 
-    def swap(var a, var b) 
-      temp = *a 
+    def swap(var a, var b)
+      temp = *a
       *a = *b
-      *b = temp 
+      *b = temp
     end
 
     int a = 3, b = 5
     swap(&a, &b)
 
-# Arrays 
+# Arrays
 
     extern printf(char* s, ...) -> int32
     var arr = [0, 5, -1, 3, 9, 12]
@@ -37,13 +39,13 @@ permalink: /examples/
 
 # Classes
 
-    extern printf(char* s, ...) -> int32 
+    extern printf(char* s, ...) -> int32
 
     class Person
       public char* name
 
       public Person(char* name)
-        @name = name 
+        @name = name
       end
     end
 
