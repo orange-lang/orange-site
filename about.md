@@ -1,30 +1,21 @@
 ---
 layout: page
-title: About Orange 
+title: About Orange
 permalink: /about/
 ---
 
-Orange is an open source systems programming language made to be highly productive, efficient, and suitible for low-level development through inline assembly and pointers and high-level development through a powerful but simple event system.
+Orange is an open source systems programming language made to be productive, efficient, and extendible. It's compiled, statically typed, and supports OOP or imperative programming. Also, functions are first-class citizens!
 
 Orange has the following goals:
 
-- High productivity through simple syntax 
-- Allow for direct memory access with C-style pointers 
-- Inline assembly for low-level code (`$mov rax, 5`)
-- Be suitable for high- or low-level development (even embedded!) 
-- Provide an event system via a [`when` keyword](https://github.com/orange-lang/orange/issues/15)
-- Change default attributes (`final`, `virtual`, `protected`, etc.) per project or per file
-- Easily bind to existing libraries 
-- Quickly access generic functions from libraries as needed (i.e., don't parse a whole header file like C++)
+- Be Productive. Provide a simple syntax for writing code quickly and make it easy to download and install project dependencies. Provide strict type checking to make sure basic type errors can't happen.
+- Be Extendible. Allow developers to extend new interfaces to existing types, and allow for creating/downloading compiler extensions that can add new language features and code checks.
+- Be Flexible. Combine the extendibility and productivity to make Orange suitable for any kind of development, from embedded programming to high-level applications like web servers.
 
-## Safety and Choice 
+## Safety and Choice
 
-That last point is pretty interesting; what does that mean? Well, for example, you 
-may have noticed that direct memory access is on the list, which is unsafe. If you wanted 
-to write more safe code in C++, you'll have to start wrapping your types in `std::unique_ptr`
-and the like, and oh boy...
+The core language of Orange is memory unsafe. This is by choice; for low-level applications, memory should be managed by hand.
 
-That's just a huge pain. Orange will allow you to change various settings per project to allow these 
-things to naturally be a part of the language. You won't have to think any harder to make your 
-code as safe as you want it to be. Ownership will transfer as soon as you assign it to a new variable. 
-Want to mix and match safe/unsafe code? Just add the `unsafe` attribute when declaring something. 
+But that's not the way all code should work. Through language extensions, users could download a garbage collection extension, or a automatic reference counting extension - none of these need to be developed by Orange, and any could be used to fit the project's needs. It should be easy to set up project with default sets of extensions, like if there was a "Hello World" starter kit of extensions that a new project would use.
+
+The choice that Orange enables forces an extra step on examining statically typed, compiled code: when looking at a new project, your first stop would be the project definition. In the project definition, you'd be able to see what extensions they are using so you can insert yourself into the appropriate mindset. It's not radically different than from when Apple first introduced ARC to Objective-C, or if you're working on a javascript project that transpiles the code.
