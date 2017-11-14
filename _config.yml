@@ -9,5 +9,11 @@ github_repo: orange
 # Build settings
 markdown: kramdown
 
+defaults:
+  - scope: 
+      path: "assets/img"
+    values: 
+      image: true
+
 collections:
 - sections
